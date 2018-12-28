@@ -1,0 +1,119 @@
+SpringBootJavainuseApacheCamel
+
+Apache Camel
+In an enterprise, a number of systems of different types exist. Some of these may be legacy systems while some may be new. These systems often interact with each other,and need to be integrated. This interaction or integration is not easy as the implementations of the systems, their message formats may differ. One way to achieve this is to implement code which bridges these differences. However this will be point to point integration. If tomorrow again if there is change in a system the other might also have to be changed which is not good. Instead of this point to point integration which causes tight coupling we can implement an additional layer to mediate the differences between the systems. This results in loose coupling and not affect much our existing systems. Apache Camel is a rule-based routing and mediation engine that provides a Java object-based implementation of the Enterprise Integration Patterns using an API (or declarative Java Domain Specific Language) to configure routing and mediation rules. 
+
+Features of Apache Camel
+Apache camel is a light weight framework. It can be deployed on a variety of containers like Tomcat, esbs etc.
+Apache camel provides us with a number of components. These components make interacting create endpoints with which a system can interact with other external systems. For example using an ActiveMQ component we expose an ActiveMQ endpoint for interaction with external system. There are more than 100 components provided by Apache Camel. Some of them are FTP,JMX, Webservices, HTTP. Apache camel also allows users to create custom components.
+Apache camel uses Message Exchange Patterns(MEP). Apache camel exchange can hold any kind of message. It supports a variety of formats like xml, JSON etc.
+Camel provides many different type converters for marshaling and unmarshalling the message during routing. Routes in a variety of domain-specific languages (DSL).The most popular ones are
+1. Java DSL - A Java based DSL using the fluent builder style.
+2. Spring XML - A XML based DSL in Spring XML files
+When using Spring XML we can make use of Spring support for
+features like Transaction Management, JPA etc.
+
+Apache Camel Tutorial
+In this tutorial we implement Apache camel examples. Some are standalone and some require deployment on JBOSS Fuse ESB.
+
+In this example we see how to use Apache Camel with a Spring Boot Application. 
+Apache Camel is a rule-based routing and mediation engine that provides a Java object-based implementation of the Enterprise Integration Patterns using an API (or declarative Java Domain Specific Language) to configure routing and mediation rules. More tutorials for Apache Camel can be found in Apache Camel Section
+
+Add the camel dependency
+<dependency>
+	<groupId>org.apache.camel</groupId>
+	<artifactId>camel-spring-boot-starter</artifactId>
+	<version>2.21.3</version>
+</dependency>
+
+Create a class MyRoute
+@Component
+public class MyRoute extends RouteBuilder {
+
+	@Override
+	public void configure() throws Exception {
+		from("file:C://inputFolder?noop=true").to("file:C://outputFolder");
+	}
+}
+
+To keep the main thread blocked so that Camel stays up,add camel.springboot.main-run-controller=true to the application.properties.
+camel.springboot.main-run-controller=true
+
+
+
+Spring Boot Tutorial- Integrate Spring Boot+ Apache Camel
+In this example we see how to use Apache Camel with a Spring Boot Application. 
+Apache Camel is a rule-based routing and mediation engine that provides a Java object-based implementation of the Enterprise Integration Patterns using an API (or declarative Java Domain Specific Language) to configure routing and mediation rules. More tutorials for Apache Camel can be found in Apache Camel Section
+Video
+
+This tutorial is explained in the below Youtube Video.
+
+
+Lets Begin-
+
+Maven Project will be as follows-
+
+Spring Boot Apache Camel Example
+
+ 
+
+In the Maven we need the camel dependency.Maven will be as follows-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.javainuse</groupId>
+  <artifactId>springboot-camel</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+ <dependencies>
+
+<dependency>
+    <groupId>org.apache.camel</groupId>
+    <artifactId>camel-spring-boot-starter</artifactId>
+    <version>2.17.0</version>
+</dependency>
+
+</dependencies>
+</project>
+Create the SpringBootHelloWorldApplication.java as below-
+package com.javainuse;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringBootHelloWorldApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootHelloWorldApplication.class, args);
+	}
+}
+
+ 
+Next we add class with the Camel routes.This routes will be started automatically.
+package com.javainuse;
+
+import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyRoute extends RouteBuilder {
+
+	@Override
+	public void configure() throws Exception {
+		from("file:C://inputFolder?noop=true").to("file:C://outputFolder");
+	}
+}
+
+
+To keep the main thread blocked so that Camel stays up,add camel.springboot.main-run-controller=true to the application.properties.
+camel.springboot.main-run-controller=true
+
+This is the only code needed to get started.
+Compile and the run the SpringBootHelloWorldApplication.java as a Java application.
+
+Spring Boot Apache Camel Tutorial
+As can be seen above one route has been started. It copies files from inputFolder to the outputFolder.
+Download Source Code
+Download it -
+Spring Boot + Apache Camel
+
